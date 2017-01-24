@@ -1,0 +1,9 @@
+applications:
+- name: aviation-batch-service
+  memory: 1G
+  host: aviation-batch-service
+  path: target/aviationmicro-batch-services-0.0.1-SNAPSHOT.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  services:
+  - postgres-sql
+  

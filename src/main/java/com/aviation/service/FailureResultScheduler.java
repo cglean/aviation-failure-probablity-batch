@@ -1,4 +1,4 @@
-package com.aviation;
+/*package com.aviation.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,15 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import com.aviation.conn.ComponentStatus;
 import com.aviation.entity.Component;
-import com.aviation.service.ServiceImp;
 import com.aviation.util.AccessToken;
 import com.aviation.util.AnalyticReport;
 import com.aviation.util.Constants;
@@ -26,36 +23,21 @@ import com.aviation.util.DataSet;
 import com.aviation.util.Utility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootApplication
-
-
-public class AviationmicroBatchServiceApplication {
+@Service
+@EnableScheduling
+public class FailureResultScheduler {
 	
-	/*@Autowired
-	FailureResultScheduler failureResultScheduler;*/
 	
 	@Autowired
 	ServiceImp serviceImp;
 	
-	@Autowired
-	ApplicationContext applicationContext;
-	public static void main(String[] args) {
-		
-		SpringApplication.run(AviationmicroBatchServiceApplication.class, args);
-		
-	}
-	
-	
-	@Bean
-	public CommandLineRunner commandLineRunne(ApplicationContext applicationContext){
-		return args ->{
-			
-			
-			System.out.println("Cron has started at : " + new Date() + "\n\n\n\n");
+	@Scheduled(cron = "0 0 00 * * ?")
+	public void componentFailureScheduler()throws Exception{
+		System.out.println("Cron has started at : " + new Date() + "\n\n\n\n");
 
-           Map<Long, Integer> compFailurData = analyticResult();
-           
-           Iterator it = compFailurData.entrySet().iterator();
+        Map<Long, Integer> compFailurData = analyticResult();
+        
+        Iterator it = compFailurData.entrySet().iterator();
 			
 			    while (it.hasNext()) {
 			    	
@@ -64,20 +46,11 @@ public class AviationmicroBatchServiceApplication {
 			       
 			    }   
 			        
-           
+        
 			System.out.println("End"+compFailurData);
-			
-			
-			
-			
-			
-		};
-		
-		
 	}
 	
-	
-	private Map<Long,Integer> analyticResult()throws Exception{
+private Map<Long,Integer> analyticResult()throws Exception{
 		
 		ComponentStatus componentStatus = new ComponentStatus();
 		StringBuffer tokenStr = componentStatus.getToken();
@@ -151,4 +124,6 @@ public class AviationmicroBatchServiceApplication {
 		}
 		return failureCompData;
 	}
+
 }
+*/
